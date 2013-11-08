@@ -63,7 +63,6 @@ public class OptionSearchService {
     	  collection.add(callable);
       }
       
-      //test
       List<Future<String>> results = null;
       try{
     	  results = (List<Future<String>>)taskExecutor.getThreadPoolExecutor().invokeAll(collection, 10, TimeUnit.SECONDS);

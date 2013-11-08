@@ -17,6 +17,7 @@ public class TestMain {
 		optionSearchService = (OptionSearchService)ctx.getBean("optionSearchService");
 
 		optionSearchService.doSearch();
-			
+		
+		// Test from Alex			
 	}
 }
