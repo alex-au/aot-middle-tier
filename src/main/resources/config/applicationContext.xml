@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd">
+		
+		
+  <context:property-placeholder
+    location="classpath:aotmiddletier.properties, file:/home/ecom/java/topups/aotmiddletier.properties"
+    ignore-resource-not-found="true"
+    ignore-unresolvable="true" />
+  <context:annotation-config/>
+  <context:component-scan base-package="com.aot.aotmiddletier"/>
+
+  <bean id="iresJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource">
+      <ref local="iresDS" />
+    </property>
+  </bean>
+
+  <bean id="iresDS" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName">
+      <value>${iresDS.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>${iresDS.url}</value>
+    </property>
+    <property name="username">
+      <value>${iresDS.username}</value>
+    </property>
+    <property name="password">
+      <value>${iresDS.password}</value>
+    </property>
+  </bean>
+
+
+  <bean id="icomGateway" class="com.aot.aotmiddletier.gateway.IcomGateway">
+    <property name="userAgent">
+      <value>Alex-XML</value>
+    </property>
+    <property name="url">
+      <value>${icomGateway.url}</value>
+    </property>
+    <property name="user">
+      <value>${icomGateway.user}</value>
+    </property>
+    <property name="password">
+      <value>${icomGateway.password}</value>
+    </property>
+  </bean>
+ 
+  
+  <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+      <property name="velocityProperties">
+         <value>
+           resource.loader=class
+           class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+         </value>
+      </property>
+   </bean>
+   
+  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	  <property name="host" value="${mailSender.host}"/>
+  </bean>
+   
+  
+  <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+	  <property name="corePoolSize" value="5" />
+	  <property name="maxPoolSize" value="10" />
+	  <property name="queueCapacity" value="25" />
+  </bean>
+  
+</beans>

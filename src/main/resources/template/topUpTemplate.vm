@@ -1,0 +1,138 @@
+<html>
+
+<style type=text/css>
+	.pfont{font-size:25px}
+	.tdfont{font-size:20px}
+</style>
+
+
+<body>
+
+<p>ATTN: Inventory Management / Reservations</p>
+ 
+<p>Our system has reported that no allocation is currently available for the below room types on the dates specified.  Please click on the link below to be directed to the AOT Supplier Manager site where you will be able to easily provide additional allocation. Your Login Code is: <b>${supplierCode}</b></p>
+
+<p>In order for the AOT Group to maximise sales to ${supplierName} we need to ensure that we have availability for instant sale. This means that your property will be able to be sold instantly by our operations staff, on our direct to travel agent sites, on our consumer websites and our Government portals.</p>
+
+
+#if ($Leisure == true)
+<p class="pfont">AOT Group - Leisure Allocation</p> 
+
+<p>AOT's general allocation used by AOT Inbound, Pacific Spirit Travel, ETA, Sunlover Holidays and Air New Zealand</p>
+
+<table border="1" width="60%">
+	<tr valign="top">
+	  <td class="tdfont">Room Type</td>
+	  <td class="tdfont">Date</td>
+	  <td class="tdfont">Top Up Link</td>
+	</tr>
+	
+	#foreach( $allocaionDesc in $LeisureObj.getRooms().keySet())
+		#set ($room = $LeisureObj.getRooms().get($allocaionDesc))
+		<tr valign="top">
+  		  <td>${allocaionDesc}</td>
+		  <td>
+		  	#foreach( $date in $room.getDates())
+		  		${date}
+		  		<BR/>
+		  	#end
+		  </td>
+		  <td><a href="${supplierManagerLinkPrefix}?token=${room.getToken()}">Click here</a></td>
+	    </tr>
+	#end
+</table>
+#end
+
+#if ($Gov == true)
+<p class="pfont">AOT Hotels – WoAG Allocation</p> 
+
+<p>AOT Hotels’ WoAG specific allocation and used specifically for the Whole of Australian Government Accommodation program.</p>
+
+<table border="1" width="60%">
+	<tr valign="top">
+	  <td class="tdfont">Room Type</td>
+	  <td class="tdfont">Date</td>
+	  <td class="tdfont">Top Up Link</td>
+	</tr>
+	
+	#foreach( $allocaionDesc in $GovObj.getRooms().keySet())
+		#set ($room = $LeisureObj.getRooms().get($allocaionDesc))
+		<tr valign="top">
+  		  <td>${allocaionDesc}</td>
+		  <td>
+		  	#foreach( $date in $room.getDates())
+		  		${date}
+		  		<BR/>
+		  	#end
+		  </td>
+		  <td><a href="${supplierManagerLinkPrefix}?token=${room.getToken()}">Click here</a></td>
+	    </tr>
+	#end
+</table>
+#end
+
+
+#if ($GovReloc == true)
+<p class="pfont">AOT Hotels – Defence Relocations Allocation</p> 
+
+<p>AOT Hotels’ Defence Relocations specific allocation and used specifically for the Department of Defence Relocations program.</p>
+
+<table border="1" width="60%">
+	<tr valign="top">
+	  <td class="tdfont">Room Type</td>
+	  <td class="tdfont">Date</td>
+	  <td class="tdfont">Top Up Link</td>
+	</tr>
+	
+	#foreach( $allocaionDesc in $GovRelocObj.getRooms().keySet())
+		#set ($room = $LeisureObj.getRooms().get($allocaionDesc))
+		<tr valign="top">
+  		  <td>${allocaionDesc}</td>
+		  <td>
+		  	#foreach( $date in $room.getDates())
+		  		${date}
+		  		<BR/>
+		  	#end
+		  </td>
+		  <td>$room.getToken()</td>
+	    </tr>
+	#end
+</table>
+#end
+
+#if ($ETA == true)
+<p class="pfont">ETA – Allocation</p> 
+
+<p>This is a specific allocation used specifically by Experience Tours Australia (ETA) in the Asian market.</p>
+
+<table border="1" width="60%">
+	<tr valign="top">
+	  <td class="tdfont">Room Type</td>
+	  <td class="tdfont">Date</td>
+	  <td class="tdfont">Top Up Link</td>
+	</tr>
+	
+	#foreach( $allocaionDesc in $ETAObj.getRooms().keySet())
+		#set ($room = $LeisureObj.getRooms().get($allocaionDesc))
+		<tr valign="top">
+  		  <td>${allocaionDesc}</td>
+		  <td>
+		  	#foreach( $date in $room.getDates())
+		  		${date}
+		  		<BR/>
+		  	#end
+		  </td>
+		  <td>$room.getToken()</td>
+	    </tr>
+	#end
+</table>
+#end
+
+<p>If you require any assistance or require your Login and Password details please feel free to contact the AOT Group Inventory Team on InventoryTopUps@aot.com.au.</p>
+<p>Kind Regards</p>
+<p>Inventory Team</p>
+<p>The AOT Group</p>
+
+</body>
+
+</html>
